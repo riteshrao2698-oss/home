@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ritesh Baswa — GHL Systems Architect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<script src="https://js-na2.hsforms.net/forms/embed/245587038.js" defer></script>
+<style>
+  :root {
+    --bg: #F5F2EC; --bg2: #EDE9E0;
+    --ink: #0F0E0B; --ink2: #3A3830; --ink3: #7A7668;
+    --accent: #1A3C34; --accent2: #2D6A5C;
+    --gold: #B89A5A; --warm: #E8DFD0;
+    --border: rgba(15,14,11,0.1);
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --display: 'Syne', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); overflow-x: hidden; font-size: 16px; line-height: 1.6; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(15,14,11,0.7);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal-box {
+    background: var(--bg); border-radius: 14px;
+    padding: 52px 48px 44px; width: 100%; max-width: 540px;
+    max-height: 92vh; overflow-y: auto; position: relative;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.35);
+    transform: translateY(28px) scale(0.97);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
+  .modal-close {
+    position: absolute; top: 18px; right: 18px;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--bg2); border: 1px solid var(--border);
+    cursor: pointer; font-size: 16px; color: var(--ink3);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, color 0.15s, transform 0.2s;
+  }
+  .modal-close:hover { background: var(--ink); color: #fff; transform: rotate(90deg); }
+  .modal-eyebrow {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .modal-eyebrow::before { content:''; display:block; width:20px; height:1px; background:var(--gold); }
+  .modal-title { font-family: var(--serif); font-size: 30px; color: var(--ink); line-height: 1.15; margin-bottom: 8px; }
+  .modal-sub { font-size: 14px; font-weight: 300; color: var(--ink3); margin-bottom: 28px; line-height: 1.65; }
+  .modal-divider { height: 1px; background: var(--border); margin-bottom: 28px; }
+  .hs-form-frame { width: 100% !important; min-height: 180px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(245,242,236,0.9);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { display: flex; align-items: center; text-decoration: none; }
+  .nav-logo img { height: 40px; width: auto; display: block; object-fit: contain; }
+  .nav-logo-text {
+    font-family: var(--display); font-size: 15px; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink);
+    display: none;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: var(--ink2); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .cta-btn {
+    font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+    color: #fff; background: var(--accent); padding: 10px 22px; border-radius: 4px;
+    border: none; cursor: pointer; transition: background 0.2s, transform 0.15s;
+  }
+  .cta-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+  .cta-btn.light {
+    background: #fff; color: var(--ink);
+    padding: 16px 34px; font-size: 14px;
+  }
+  .cta-btn.light:hover { background: var(--warm); }
+  .cta-btn.ghost-white {
+    background: transparent; color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 16px 34px; font-size: 14px;
+  }
+  .cta-btn.ghost-white:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px 60px 80px; gap: 60px; position: relative; overflow: hidden; }
+  .hero-bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--display); font-size: clamp(100px,18vw,260px); font-weight: 800; letter-spacing: -0.04em; color: rgba(15,14,11,0.03); white-space: nowrap; pointer-events: none; user-select: none; z-index: 0; }
+  .hero-left { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; }
+  .hero-eyebrow::before { content:''; display:block; width:32px; height:1px; background:var(--gold); }
+  .hero-h1 { font-family: var(--serif); font-size: clamp(42px,5.5vw,72px); line-height: 1.08; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 24px; }
+  .hero-h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub { font-size: 17px; font-weight: 300; color: var(--ink2); line-height: 1.7; max-width: 460px; margin-bottom: 44px; }
+  .hero-sub strong { font-weight: 500; color: var(--ink); }
+  .hero-actions { display: flex; gap: 16px; align-items: center; }
+  .btn-hero { font-family: var(--sans); font-size: 14px; font-weight: 600; letter-spacing: 0.03em; background: var(--accent); color: #fff; padding: 15px 30px; border-radius: 4px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+  .btn-hero:hover { background: var(--accent2); transform: translateY(-2px); }
+  .btn-ghost-ink { font-family: var(--sans); font-size: 14px; font-weight: 500; letter-spacing: 0.03em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .btn-ghost-ink:hover { color: var(--accent); border-color: var(--accent); }
+  .hero-right { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 14px; }
+  .hero-stat-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 22px 26px; display: flex; align-items: center; gap: 18px; box-shadow: 0 2px 20px rgba(0,0,0,0.04); transition: transform 0.2s, box-shadow 0.2s; }
+  .hero-stat-card:hover { transform: translateX(4px); box-shadow: 0 4px 30px rgba(0,0,0,0.08); }
+  .card-icon { width: 44px; height: 44px; border-radius: 8px; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .card-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 3px; }
+  .card-title { font-size: 15px; font-weight: 500; color: var(--ink); }
+  .hero-scroll { position: absolute; bottom: 36px; left: 60px; display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); }
+  .scroll-line { width: 40px; height: 1px; background: var(--ink3); animation: scrollPulse 2s ease-in-out infinite; }
+  @keyframes scrollPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+  /* SECTIONS */
+  section { padding: 100px 60px; }
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content:''; display:block; width:24px; height:1px; background:var(--gold); }
+  .section-h2 { font-family: var(--serif); font-size: clamp(32px,4vw,52px); line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 20px; }
+  .section-h2 em { font-style: italic; color: var(--accent); }
+  .section-body { font-size: 17px; font-weight: 300; color: var(--ink2); line-height: 1.75; max-width: 620px; }
+
+  /* PROBLEM */
+  #problem { background: var(--ink); color: #fff; }
+  #problem .section-h2 { color: #fff; }
+  #problem .section-body { color: rgba(255,255,255,0.6); }
+  #problem .section-label { color: var(--gold); }
+  #problem .section-label::before { background: var(--gold); }
+  .problem-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2px; margin-top: 60px; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; overflow: hidden; }
+  .problem-item { padding: 40px 36px; border-right: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); transition: background 0.2s; }
+  .problem-item:hover { background: rgba(255,255,255,0.03); }
+  .problem-item:nth-child(2n) { border-right: none; }
+  .problem-item:nth-child(3), .problem-item:nth-child(4) { border-bottom: none; }
+  .problem-num { font-family: var(--display); font-size: 42px; font-weight: 800; color: rgba(255,255,255,0.06); margin-bottom: 16px; line-height: 1; }
+  .problem-title { font-family: var(--serif); font-size: 22px; color: #fff; margin-bottom: 10px; }
+  .problem-desc { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+  /* SOLUTION */
+  #solution { background: var(--bg2); }
+  .solution-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .solution-features { margin-top: 40px; display: flex; flex-direction: column; gap: 24px; }
+  .sol-feat { display: flex; gap: 16px; align-items: flex-start; padding: 24px; background: #fff; border: 1px solid var(--border); border-radius: 6px; transition: transform 0.2s, box-shadow 0.2s; }
+  .sol-feat:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
+  .sol-dot { width: 36px; height: 36px; border-radius: 6px; background: var(--accent); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+  .sol-feat-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .sol-feat-desc { font-size: 13px; color: var(--ink3); line-height: 1.6; }
+  .solution-visual { display: flex; flex-direction: column; gap: 12px; }
+  .vis-block { background: var(--ink); color: #fff; border-radius: 8px; padding: 24px 28px; position: relative; overflow: hidden; }
+  .vis-block::before { content:''; position:absolute; top:0; right:0; width:120px; height:120px; background: radial-gradient(circle,rgba(184,154,90,0.15),transparent 70%); }
+  .vis-block-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .vis-block-title { font-family: var(--serif); font-size: 20px; color: #fff; }
+  .vis-connector { height: 24px; display: flex; align-items: center; justify-content: center; color: var(--ink3); font-size: 20px; }
+
+  /* SYSTEMS */
+  #systems { background: var(--bg); }
+  .systems-intro { max-width: 620px; margin-bottom: 64px; }
+  .systems-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+  .system-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 40px 36px; position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
+  .system-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.09); }
+  .system-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+  .system-card:hover::after { transform: scaleX(1); }
+  .sys-tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: rgba(26,60,52,0.08); border-radius: 3px; padding: 4px 10px; margin-bottom: 20px; }
+  .sys-name { font-family: var(--serif); font-size: 26px; line-height: 1.2; color: var(--ink); margin-bottom: 14px; }
+  .sys-desc { font-size: 14px; font-weight: 300; color: var(--ink2); line-height: 1.7; margin-bottom: 24px; }
+  .sys-divider { height: 1px; background: var(--border); margin-bottom: 20px; }
+  .sys-meta { display: flex; flex-direction: column; gap: 10px; }
+  .sys-meta-row { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; }
+  .sys-meta-key { font-weight: 600; color: var(--ink3); min-width: 72px; letter-spacing: 0.02em; }
+  .sys-meta-val { color: var(--ink2); font-weight: 300; }
+  .system-card.featured { background: var(--accent); border-color: transparent; }
+  .system-card.featured .sys-tag { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); }
+  .system-card.featured .sys-name { color: #fff; }
+  .system-card.featured .sys-desc { color: rgba(255,255,255,0.7); }
+  .system-card.featured .sys-divider { background: rgba(255,255,255,0.15); }
+  .system-card.featured .sys-meta-key { color: rgba(255,255,255,0.5); }
+  .system-card.featured .sys-meta-val { color: rgba(255,255,255,0.85); }
+  .system-card.featured::after { background: var(--gold); }
+
+  /* PROCESS */
+  #process { background: var(--bg2); }
+  .process-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin-top: 64px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .process-step { padding: 40px 32px; border-right: 1px solid var(--border); transition: background 0.2s; }
+  .process-step:hover { background: #fff; }
+  .process-step:last-child { border-right: none; }
+  .step-num { font-family: var(--display); font-size: 52px; font-weight: 800; color: rgba(15,14,11,0.05); line-height: 1; margin-bottom: 20px; }
+  .step-title { font-family: var(--serif); font-size: 20px; color: var(--ink); margin-bottom: 10px; }
+  .step-desc { font-size: 13px; color: var(--ink3); line-height: 1.65; font-weight: 300; }
+
+  /* AUTHORITY */
+  #authority { background: var(--bg); }
+  .authority-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .authority-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .atag { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); border: 1px solid var(--border); padding: 8px 16px; border-radius: 3px; transition: background 0.15s, border-color 0.15s; }
+  .atag:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .authority-cards { display: flex; flex-direction: column; gap: 16px; }
+  .auth-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 26px 28px; transition: transform 0.2s; }
+  .auth-card:hover { transform: translateX(4px); }
+  .auth-card-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+  .auth-card-body { font-size: 13px; color: var(--ink3); line-height: 1.6; font-weight: 300; }
+
+  /* CTA */
+  #cta { background: var(--ink); padding: 120px 60px; text-align: center; }
+  #cta .section-label { justify-content: center; }
+  #cta .section-label::before { display: none; }
+  .cta-h2 { font-family: var(--serif); font-size: clamp(36px,5vw,64px); color: #fff; line-height: 1.1; margin-bottom: 20px; }
+  .cta-h2 em { font-style: italic; color: var(--gold); }
+  .cta-sub { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.55); max-width: 520px; margin: 0 auto 50px; line-height: 1.7; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .cta-note { margin-top: 28px; font-size: 12px; color: rgba(255,255,255,0.3); letter-spacing: 0.04em; }
+
+  /* FOOTER */
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 32px 60px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: var(--display); font-size: 14px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+  /* ANIMATIONS */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    #hero { grid-template-columns: 1fr; padding: 120px 24px 80px; gap: 48px; }
+    .hero-right { display: none; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .solution-inner { grid-template-columns: 1fr; }
+    .systems-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .authority-inner { grid-template-columns: 1fr; }
+    #cta { padding: 80px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .process-steps { grid-template-columns: 1fr; }
+    .process-step { border-right: none; border-bottom: 1px solid var(--border); }
+    .process-step:last-child { border-bottom: none; }
+    .modal-box { padding: 40px 20px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="contactModal" role="dialog" aria-modal="true" aria-label="Book a Call">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&#x2715;</button>
+    <div class="modal-eyebrow">Let's Build Your System</div>
+    <div class="modal-title">Book a Strategy Call</div>
+    <p class="modal-sub">Tell us about your business. We'll map out exactly what system you need — no fluff, no pitch deck.</p>
+    <div class="modal-divider"></div>
+    <div class="hs-form-frame"
+      data-region="na2"
+      data-form-id="5e261bb1-c1df-47d8-aea3-ad15a80a6eb8"
+      data-portal-id="245587038">
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img
+      src="https://lh3.googleusercontent.com/d/1cuVRtZAWOaueXoiN_pyR3i_pLMQLkgev"
+      alt="Ritesh Baswa"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+    >
+    <span class="nav-logo-text">Ritesh Baswa</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#systems">Systems</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#authority">About</a></li>
+  </ul>
+  <button class="cta-btn" onclick="openModal()">Book a Call</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">SYSTEMS</div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">GHL Systems Architect</div>
+    <h1 class="hero-h1">
+      Your business deserves<br>
+      a <em>system,</em> not<br>
+      another tool.
+    </h1>
+    <p class="hero-sub">
+      I build complete, automated business operating systems inside GoHighLevel &#8212;
+      <strong>combining CRM, AI, and workflow logic</strong> into one coherent engine
+      that runs your operations without you.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-hero" onclick="openModal()">Book a Strategy Call</button>
+      <a href="#systems" class="btn-ghost-ink">Explore Systems &rarr;</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-card fade-up">
+      <div class="card-icon">&#9881;&#65039;</div>
+      <div><div class="card-label">System Type</div><div class="card-title">Voice AI + CRM Automation</div></div>
+    </div>
+    <div class="hero-stat-card fade-up" style="transition-delay:0.1s">
+      <div class="card-icon">&#128279;</div>
+      <div><div class="card-label">Built On</div><div class="card-title">GoHighLevel &middot; n8n &middot; GPT &middot; APIs</div></div>
+    </div>
+    <div class="hero-stat-card fade-up" style="transition-delay:0.2s">
+      <div class="card-icon">&#128200;</div>
+      <div><div class="card-label">Outcome</div><div class="card-title">Full pipeline &#8212; automated end to end</div></div>
+    </div>
+    <div class="hero-stat-card fade-up" style="transition-delay:0.3s">
+      <div class="card-icon">&#129504;</div>
+      <div><div class="card-label">Approach</div><div class="card-title">System architecture, not task execution</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll"><span class="scroll-line"></span> Scroll</div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="section-label">The Problem</div>
+  <h2 class="section-h2">You built a business.<br>But your operations are still<br>running on chaos.</h2>
+  <p class="section-body">Most businesses at your stage are duct-taped together &#8212; eight tools, three spreadsheets, and a team of people doing work a system should handle. The bigger you grow, the louder the noise.</p>
+  <div class="problem-grid">
+    <div class="problem-item fade-up">
+      <div class="problem-num">01</div>
+      <div class="problem-title">Operational Chaos</div>
+      <p class="problem-desc">Leads fall through gaps. Follow-ups happen manually. Your team spends hours on tasks that should take seconds. Growth compounds the mess.</p>
+    </div>
+    <div class="problem-item fade-up" style="transition-delay:0.1s">
+      <div class="problem-num">02</div>
+      <div class="problem-title">Disconnected Tools</div>
+      <p class="problem-desc">Zapier, Calendly, HubSpot, ActiveCampaign, ClickFunnels &#8212; all talking past each other. No single source of truth. Data everywhere, clarity nowhere.</p>
+    </div>
+    <div class="problem-item fade-up" style="transition-delay:0.2s">
+      <div class="problem-num">03</div>
+      <div class="problem-title">Manual Everything</div>
+      <p class="problem-desc">Booking calls, sending reminders, tagging contacts, updating pipelines &#8212; your team is the automation. And they&#8217;re burning out.</p>
+    </div>
+    <div class="problem-item fade-up" style="transition-delay:0.3s">
+      <div class="problem-num">04</div>
+      <div class="problem-title">No System, Just Hustle</div>
+      <p class="problem-desc">Your business runs because of who&#8217;s in it, not how it&#8217;s built. That&#8217;s a ceiling &#8212; and it&#8217;s closer than you think.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="solution-inner">
+    <div>
+      <div class="section-label">The Solution</div>
+      <h2 class="section-h2">One system.<br>Every operation<br><em>connected.</em></h2>
+      <p class="section-body">I architect complete business operating systems inside GoHighLevel &#8212; not funnels, not templates, not patches. A single, intelligent platform that handles your entire client journey from first touch to closed deal to retention.</p>
+      <div class="solution-features">
+        <div class="sol-feat">
+          <div class="sol-dot">&#128257;</div>
+          <div><div class="sol-feat-title">Replace the Tool Stack</div><div class="sol-feat-desc">One GHL system consolidates your CRM, funnel, booking, pipeline, messaging, and reporting.</div></div>
+        </div>
+        <div class="sol-feat">
+          <div class="sol-dot">&#9889;</div>
+          <div><div class="sol-feat-title">Automate the Operations Layer</div><div class="sol-feat-desc">Every repetitive touchpoint &#8212; follow-ups, reminders, tagging, routing &#8212; runs without human input.</div></div>
+        </div>
+        <div class="sol-feat">
+          <div class="sol-dot">&#129302;</div>
+          <div><div class="sol-feat-title">Embed AI Into the Workflow</div><div class="sol-feat-desc">Voice AI, GPT automations, and intelligent decision logic that responds, qualifies, and acts in real time.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="solution-visual">
+      <div class="vis-block"><div class="vis-block-label">Input Layer</div><div class="vis-block-title">Lead Capture &middot; Ads &middot; Referrals &middot; Inbound Calls</div></div>
+      <div class="vis-connector">&darr;</div>
+      <div class="vis-block"><div class="vis-block-label">Intelligence Layer</div><div class="vis-block-title">AI Qualification &middot; Voice Bot &middot; GPT Workflows</div></div>
+      <div class="vis-connector">&darr;</div>
+      <div class="vis-block"><div class="vis-block-label">Automation Layer</div><div class="vis-block-title">Pipelines &middot; Nurture &middot; Booking &middot; Reminders</div></div>
+      <div class="vis-connector">&darr;</div>
+      <div class="vis-block" style="background:var(--accent)"><div class="vis-block-label" style="color:rgba(255,255,255,0.6)">Output Layer</div><div class="vis-block-title">Closed Deals &middot; Retained Clients &middot; Clean Data</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEMS -->
+<section id="systems">
+  <div class="systems-intro">
+    <div class="section-label">Systems</div>
+    <h2 class="section-h2">Built like products.<br>Deployed for <em>results.</em></h2>
+    <p class="section-body">These aren&#8217;t custom projects quoted per hour. They&#8217;re complete systems &#8212; architected, documented, and deployable &#8212; each solving a specific operational layer of your business.</p>
+  </div>
+  <div class="systems-grid">
+    <div class="system-card featured fade-up">
+      <div class="sys-tag">&#11088; Flagship System</div>
+      <div class="sys-name">Voice AI Conversation System</div>
+      <p class="sys-desc">An intelligent AI voice agent that answers inbound calls, qualifies prospects, handles objections, and books appointments &#8212; 24/7, without human involvement. Built on GHL with GPT logic and live calendar sync.</p>
+      <div class="sys-divider"></div>
+      <div class="sys-meta">
+        <div class="sys-meta-row"><span class="sys-meta-key">Best for</span><span class="sys-meta-val">Agencies, clinics, coaches, and service businesses with high inbound volume</span></div>
+        <div class="sys-meta-row"><span class="sys-meta-key">Outcome</span><span class="sys-meta-val">Zero missed calls. Qualified leads. Appointments booked automatically.</span></div>
+        <div class="sys-meta-row"><span class="sys-meta-key">Stack</span><span class="sys-meta-val">GHL &middot; Voice AI &middot; GPT &middot; n8n &middot; Webhooks</span></div>
+      </div>
+    </div>
+    <div class="system-card fade-up" style="transition-delay:0.1s">
+      <div class="sys-tag">&#128260; Full Funnel System</div>
+      <div class="sys-name">Funnel + Automation Operating System</div>
+      <p class="sys-desc">A complete lead-to-client pipeline &#8212; landing pages, opt-ins, email sequences, pipeline stages, booking flows, and post-sale onboarding &#8212; all inside one GHL sub-account. Replaces 5&#8211;7 tools.</p>
+      <div class="sys-divider"></div>
+      <div class="sys-meta">
+        <div class="sys-meta-row"><span class="sys-meta-key">Best for</span><span class="sys-meta-val">Coaches, consultants, and agency owners running multiple offers</span></div>
+        <div class="sys-meta-row"><span class="sys-meta-key">Outcome</span><span class="sys-meta-val">One unified system from first click to closed client, fully on autopilot</span></div>
+        <div class="sys-meta-row"><span class="sys-meta-key">Stack</span><span class="sys-meta-val">GHL &middot; Custom Funnels &middot; Pipelines &middot; Workflows &middot; Email + SMS</span></div>
+      </div>
+    </div>
+    <div class="system-card fade-up" style="transition-delay:0.2s">
+      <div class="sys-tag">&#129504; AI-Powered</div>
+      <div class="sys-name">AI CRM Intelligence System</div>
+      <p class="sys-desc">GPT-powered contact enrichment, lead scoring, and smart routing inside GHL. The system reads incoming leads, classifies intent, assigns to the right pipeline, and triggers the right follow-up &#8212; automatically.</p>
+      <div class="sys-divider"></div>
+      <div class="sys-meta">
+        <div class="sys-meta-row"><span class="sys-meta-key">Best for</span><span class="sys-meta-val">Teams managing high lead volume with inconsistent follow-up</span></div>
+        <div class="sys-meta-row"><span class="sys-meta-key">Outcome</span><span class="sys-meta-val">Every lead touched correctly, instantly, without manual triage</span></div>
+        <div class="sys-meta-row"><span class="sys-meta-key">Stack</span><span class="sys-meta-val">GHL &middot; GPT API &middot; n8n &middot; Custom Webhooks</span></div>
+      </div>
+    </div>
+    <div class="system-card fade-up" style="transition-delay:0.3s">
+      <div class="sys-tag">&#128279; Integration Layer</div>
+      <div class="sys-name">External Integration Engine</div>
+      <p class="sys-desc">A custom-built middleware layer connecting GHL to your existing stack &#8212; Stripe, Calendly, HubSpot, Google Sheets, Slack, or any external API &#8212; via n8n and MCP servers. No more data silos.</p>
+      <div class="sys-divider"></div>
+      <div class="sys-meta">
+        <div class="sys-meta-row"><span class="sys-meta-key">Best for</span><span class="sys-meta-val">Businesses already using GHL who need it connected to their wider stack</span></div>
+        <div class="sys-meta-row"><span class="sys-meta-key">Outcome</span><span class="sys-meta-val">GHL becomes the command center. Everything else feeds into it.</span></div>
+        <div class="sys-meta-row"><span class="sys-meta-key">Stack</span><span class="sys-meta-val">GHL &middot; n8n &middot; REST APIs &middot; MCP Servers &middot; Webhooks</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-label">How I Work</div>
+  <h2 class="section-h2" style="max-width:560px">From operational chaos to<br>a system that <em>runs itself.</em></h2>
+  <div class="process-steps">
+    <div class="process-step fade-up">
+      <div class="step-num">01</div>
+      <div class="step-title">Understand the Business</div>
+      <p class="step-desc">We map your current operations &#8212; tools, workflows, bottlenecks, and goals. I identify exactly where automation will have the highest leverage.</p>
+    </div>
+    <div class="process-step fade-up" style="transition-delay:0.1s">
+      <div class="step-num">02</div>
+      <div class="step-title">Design the System</div>
+      <p class="step-desc">I architect the full system before touching a single tool &#8212; pipeline logic, automation triggers, AI touchpoints, and integration map. Built on paper first.</p>
+    </div>
+    <div class="process-step fade-up" style="transition-delay:0.2s">
+      <div class="step-num">03</div>
+      <div class="step-title">Build in GHL</div>
+      <p class="step-desc">Precise, documented construction inside GoHighLevel. Funnels, workflows, pipelines, AI agents, and external integrations &#8212; all wired and tested.</p>
+    </div>
+    <div class="process-step fade-up" style="transition-delay:0.3s">
+      <div class="step-num">04</div>
+      <div class="step-title">Automate &amp; Optimize</div>
+      <p class="step-desc">The system goes live, then gets refined. I monitor outputs, optimize triggers, and tune the AI until the system runs without friction.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AUTHORITY -->
+<section id="authority">
+  <div class="authority-inner">
+    <div>
+      <div class="section-label">About</div>
+      <h2 class="section-h2">I build systems.<br>Not <em>websites.</em></h2>
+      <p class="section-body">I&#8217;m Ritesh Baswa &#8212; a GoHighLevel systems architect specializing in automation, AI integration, and operational infrastructure for agencies, coaches, and high-growth businesses.</p>
+      <p class="section-body" style="margin-top:16px">My work sits at the intersection of product thinking and technical execution. I don&#8217;t take on projects &#8212; I solve operational problems with systems that outlast any one hire, trend, or tool.</p>
+      <div class="authority-tags">
+        <span class="atag">GoHighLevel Expert</span><span class="atag">Voice AI Systems</span>
+        <span class="atag">n8n Automation</span><span class="atag">GPT Workflows</span>
+        <span class="atag">CRM Architecture</span><span class="atag">API Integrations</span>
+        <span class="atag">MCP Servers</span><span class="atag">Pipeline Design</span><span class="atag">System Thinking</span>
+      </div>
+    </div>
+    <div class="authority-cards">
+      <div class="auth-card fade-up">
+        <div class="auth-card-title">Not a VA. Not a funnel builder.</div>
+        <p class="auth-card-body">I approach every engagement as a systems architect &#8212; mapping the full operational picture before writing a single workflow. The result is infrastructure, not just output.</p>
+      </div>
+      <div class="auth-card fade-up" style="transition-delay:0.1s">
+        <div class="auth-card-title">Advanced GHL, end to end.</div>
+        <p class="auth-card-body">Beyond the basics &#8212; custom workflows, advanced conditional logic, sub-account architecture, API-level integrations, and AI-embedded automations most consultants don&#8217;t build.</p>
+      </div>
+      <div class="auth-card fade-up" style="transition-delay:0.2s">
+        <div class="auth-card-title">AI-first by design.</div>
+        <p class="auth-card-body">Every system I build has an AI layer &#8212; whether it&#8217;s a voice agent, a GPT-powered classifier, or smart routing logic. AI isn&#8217;t an add-on. It&#8217;s structural.</p>
+      </div>
+      <div class="auth-card fade-up" style="transition-delay:0.3s">
+        <div class="auth-card-title">Built to hand off, not babysit.</div>
+        <p class="auth-card-body">Every system comes documented, trained, and tested so your team can run it &#8212; or so it runs itself.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="section-label">Ready to Build</div>
+  <h2 class="cta-h2">Stop patching.<br>Start building a<br><em>real system.</em></h2>
+  <p class="cta-sub">If your business is ready to replace operational chaos with a system that actually scales &#8212; let&#8217;s talk. One call. No pitch deck. Just an honest conversation about what you need and what&#8217;s possible.</p>
+  <div class="cta-buttons">
+    <button class="cta-btn light" onclick="openModal()">Book a Strategy Call &rarr;</button>
+    <button class="cta-btn ghost-white" onclick="openModal()">Get a Free System Audit</button>
+  </div>
+  <p class="cta-note">No commitment required &middot; Usually responds within 24 hours</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Ritesh Baswa</div>
+  <div class="footer-copy">&copy; 2025 Ritesh Baswa. All rights reserved.</div>
+</footer>
+
+<script>
+  function openModal() {
+    document.getElementById('contactModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('contactModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('contactModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  setTimeout(() => {
+    document.querySelectorAll('.hero-right .fade-up').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 120);
+    });
+  }, 300);
+</script>
+</body>
+</html>
