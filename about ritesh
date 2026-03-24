@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — B Ritesh Rao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F2EC;
+    --bg2: #EDE9E0;
+    --ink: #0F0E0B;
+    --ink2: #3A3830;
+    --ink3: #7A7668;
+    --accent: #1A3C34;
+    --accent2: #2D6A5C;
+    --gold: #B89A5A;
+    --warm: #E8DFD0;
+    --border: rgba(15,14,11,0.1);
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --display: 'Syne', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 60px;
+    background: rgba(245,242,236,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--display);
+    font-size: 15px; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--ink2); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a.active { color: var(--accent); }
+  .nav-cta {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+    color: #fff; background: var(--accent);
+    padding: 10px 22px; border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 60px; }
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content:''; display:block; width:24px; height:1px; background:var(--gold); }
+  .section-h2 {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.1; letter-spacing: -0.01em;
+    color: var(--ink); margin-bottom: 20px;
+  }
+  .section-h2 em { font-style: italic; color: var(--accent); }
+  .section-body {
+    font-size: 17px; font-weight: 300; color: var(--ink2);
+    line-height: 1.75; max-width: 620px;
+  }
+
+  /* ── ABOUT HERO ── */
+  #about-hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 140px 60px 100px;
+    gap: 80px;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .about-hero-bg {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--display);
+    font-size: clamp(80px, 14vw, 200px);
+    font-weight: 800; letter-spacing: -0.04em;
+    color: rgba(15,14,11,0.03);
+    white-space: nowrap;
+    pointer-events: none; user-select: none;
+    z-index: 0;
+  }
+  .about-hero-left { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--gold);
+  }
+  .about-name {
+    font-family: var(--serif);
+    font-size: clamp(44px, 5.5vw, 74px);
+    line-height: 1.06; letter-spacing: -0.01em;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .about-name em { font-style: italic; color: var(--accent); }
+  .about-headline {
+    font-family: var(--sans);
+    font-size: 14px; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--ink3);
+    margin-bottom: 32px;
+  }
+  .about-intro {
+    font-size: 17px; font-weight: 300; color: var(--ink2);
+    line-height: 1.75; max-width: 500px; margin-bottom: 44px;
+  }
+  .about-intro strong { font-weight: 500; color: var(--ink); }
+  .hero-actions { display: flex; gap: 16px; align-items: center; }
+  .btn-primary {
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    letter-spacing: 0.03em;
+    background: var(--accent); color: #fff;
+    padding: 15px 30px; border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+  .btn-ghost {
+    font-family: var(--sans); font-size: 14px; font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Photo side */
+  .about-hero-right {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .photo-frame {
+    position: relative;
+    width: 380px; max-width: 100%;
+  }
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    top: 20px; left: 20px; right: -20px; bottom: -20px;
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    z-index: 0;
+    opacity: 0.4;
+  }
+  .photo-frame img {
+    position: relative; z-index: 1;
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+    object-fit: cover;
+    filter: grayscale(8%) contrast(1.03);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+  }
+  .photo-badge {
+    position: absolute; bottom: -16px; right: -16px; z-index: 2;
+    background: var(--accent); color: #fff;
+    border-radius: 6px; padding: 14px 18px;
+    box-shadow: 0 8px 24px rgba(26,60,52,0.3);
+    text-align: center;
+  }
+  .photo-badge-num {
+    font-family: var(--display); font-size: 26px; font-weight: 800;
+    line-height: 1;
+  }
+  .photo-badge-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; opacity: 0.7; margin-top: 3px;
+  }
+
+  /* ── SUMMARY SECTION ── */
+  #summary { background: var(--bg2); }
+  .summary-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+  .summary-text p {
+    font-size: 17px; font-weight: 300; color: var(--ink2);
+    line-height: 1.8; margin-bottom: 20px;
+  }
+  .summary-text p:last-child { margin-bottom: 0; }
+  .summary-text strong { font-weight: 500; color: var(--ink); }
+
+  .summary-aside { display: flex; flex-direction: column; gap: 16px; }
+  .aside-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 8px; padding: 26px 28px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .aside-card:hover { transform: translateX(4px); box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
+  .aside-card-icon {
+    font-size: 22px; margin-bottom: 12px;
+  }
+  .aside-card-title {
+    font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 6px;
+  }
+  .aside-card-body {
+    font-size: 13px; color: var(--ink3); line-height: 1.6; font-weight: 300;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--bg); }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 56px;
+  }
+  .skill-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 36px 32px;
+    position: relative; overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .skill-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.09); }
+  .skill-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .skill-card:hover::after { transform: scaleX(1); }
+  .skill-card.featured {
+    background: var(--accent); color: #fff;
+    border-color: transparent;
+    grid-column: span 1;
+  }
+  .skill-card.featured .skill-tag { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); }
+  .skill-card.featured .skill-name { color: #fff; }
+  .skill-card.featured .skill-desc { color: rgba(255,255,255,0.65); }
+  .skill-card.featured::after { background: var(--gold); }
+  .skill-tag {
+    display: inline-block;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent);
+    background: rgba(26,60,52,0.08); border-radius: 3px;
+    padding: 4px 10px; margin-bottom: 18px;
+  }
+  .skill-name {
+    font-family: var(--serif); font-size: 22px;
+    line-height: 1.2; color: var(--ink); margin-bottom: 10px;
+  }
+  .skill-desc {
+    font-size: 13px; font-weight: 300; color: var(--ink2);
+    line-height: 1.7;
+  }
+  .skill-tools {
+    margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .skill-tool-tag {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--ink); border: 1px solid var(--border);
+    padding: 5px 12px; border-radius: 3px;
+  }
+  .skill-card.featured .skill-tool-tag {
+    color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.2);
+  }
+
+  /* ── INTERESTS ── */
+  #interests { background: var(--ink); color: #fff; }
+  #interests .section-h2 { color: #fff; }
+  #interests .section-body { color: rgba(255,255,255,0.55); }
+  #interests .section-label { color: var(--gold); }
+  #interests .section-label::before { background: var(--gold); }
+  .interests-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 2px; margin-top: 56px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px; overflow: hidden;
+  }
+  .interest-item {
+    padding: 40px 36px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.2s;
+  }
+  .interest-item:hover { background: rgba(255,255,255,0.03); }
+  .interest-item:nth-child(2n) { border-right: none; }
+  .interest-item:nth-child(3), .interest-item:nth-child(4) { border-bottom: none; }
+  .interest-icon { font-size: 28px; margin-bottom: 16px; }
+  .interest-title {
+    font-family: var(--serif); font-size: 22px;
+    color: #fff; margin-bottom: 10px;
+  }
+  .interest-desc {
+    font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+  }
+
+  /* ── TAGS / TOOLS ── */
+  .authority-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .atag {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--ink); border: 1px solid var(--border);
+    padding: 8px 16px; border-radius: 3px;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .atag:hover { background: var(--ink); color: #fff; border-color: var(--ink); cursor: default; }
+
+  /* ── CTA ── */
+  #cta {
+    background: var(--ink); padding: 120px 60px;
+    text-align: center;
+  }
+  #cta .section-label { justify-content: center; }
+  #cta .section-label::before { display: none; }
+  .cta-h2 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 64px);
+    color: #fff; line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .cta-h2 em { font-style: italic; color: var(--gold); }
+  .cta-sub {
+    font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.55);
+    max-width: 520px; margin: 0 auto 50px; line-height: 1.7;
+  }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .btn-light {
+    font-size: 14px; font-weight: 600; letter-spacing: 0.03em;
+    background: #fff; color: var(--ink);
+    padding: 16px 34px; border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-light:hover { background: var(--warm); transform: translateY(-2px); }
+  .btn-outline {
+    font-size: 14px; font-weight: 500; letter-spacing: 0.03em;
+    border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.8);
+    padding: 16px 34px; border-radius: 4px;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .btn-outline:hover {
+    border-color: rgba(255,255,255,0.6); color: #fff;
+    transform: translateY(-2px);
+  }
+  .cta-note {
+    margin-top: 28px; font-size: 12px; color: rgba(255,255,255,0.3);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 32px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-logo {
+    font-family: var(--display); font-size: 14px; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5);
+  }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    #about-hero { grid-template-columns: 1fr; padding: 120px 24px 80px; gap: 48px; }
+    .about-hero-right { order: -1; }
+    .photo-frame { width: 260px; }
+    .summary-inner { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .interests-grid { grid-template-columns: 1fr; }
+    #cta { padding: 80px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Ritesh Baswa</a>
+  <ul class="nav-links">
+    <li><a href="index.html#problem">The Problem</a></li>
+    <li><a href="index.html#systems">Systems</a></li>
+    <li><a href="index.html#process">Process</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+  </ul>
+  <a href="index.html#cta" class="nav-cta">Book a Call</a>
+</nav>
+
+<!-- ABOUT HERO -->
+<section id="about-hero">
+  <div class="about-hero-bg">ABOUT</div>
+
+  <div class="about-hero-left">
+    <div class="hero-eyebrow">Digital Automation Specialist</div>
+    <h1 class="about-name">
+      B Ritesh<br><em>Rao.</em>
+    </h1>
+    <p class="about-headline">GoHighLevel Expert · Funnels · AI Systems</p>
+    <p class="about-intro">
+      I help businesses scale through <strong>intelligent automation</strong> and
+      AI-driven workflows — combining marketing, CRM, and operations
+      into one seamless growth engine.
+    </p>
+    <div class="hero-actions">
+      <a href="index.html#cta" class="btn-primary">Book a Strategy Call</a>
+      <a href="index.html#systems" class="btn-ghost">See My Systems →</a>
+    </div>
+  </div>
+
+  <div class="about-hero-right">
+    <div class="photo-frame">
+      <img src="https://i.ibb.co/SwFqy04v/1000087121.png" alt="B Ritesh Rao">
+      <div class="photo-badge">
+        <div class="photo-badge-num">GHL</div>
+        <div class="photo-badge-label">Expert</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFESSIONAL SUMMARY -->
+<section id="summary">
+  <div class="summary-inner">
+    <div class="summary-text fade-up">
+      <div class="section-label">Professional Summary</div>
+      <h2 class="section-h2" style="margin-bottom:32px">
+        Results-driven.<br><em>System-first.</em>
+      </h2>
+      <p>
+        I am a <strong>results-driven digital solutions specialist</strong> with expertise in building
+        high-converting funnels, websites, and automation systems using GoHighLevel.
+        I specialize in helping businesses streamline operations, capture leads, and scale
+        through intelligent automation and AI-driven workflows.
+      </p>
+      <p>
+        With hands-on experience in freelancing, I design and deploy <strong>end-to-end systems</strong>
+        that combine marketing, CRM, and automation into a seamless growth engine.
+        My work focuses on creating practical, revenue-focused solutions rather than
+        just technical setups.
+      </p>
+      <p>
+        Beyond development, I have a strong understanding of <strong>financial planning and
+        asset-building strategies</strong>, actively exploring investments, real estate
+        opportunities, and scalable income systems.
+      </p>
+      <p>
+        I approach problems with a mix of analytical thinking and execution speed,
+        ensuring both strategy and implementation are aligned. I am <strong>continuously
+        learning and evolving</strong>, with interests spanning technology, automation,
+        business systems, and personal growth frameworks.
+      </p>
+    </div>
+
+    <div class="summary-aside">
+      <div class="aside-card fade-up">
+        <div class="aside-card-icon">⚙️</div>
+        <div class="aside-card-title">Systems Architect</div>
+        <p class="aside-card-body">
+          I don't build one-off setups. Every engagement is architected end-to-end —
+          strategy, design, build, and automation layered into a single coherent system.
+        </p>
+      </div>
+      <div class="aside-card fade-up" style="transition-delay:0.1s">
+        <div class="aside-card-icon">💡</div>
+        <div class="aside-card-title">Revenue-Focused</div>
+        <p class="aside-card-body">
+          Technical work is only valuable when it drives outcomes. Every system I
+          build is tied to a measurable business result — leads, bookings, or closed deals.
+        </p>
+      </div>
+      <div class="aside-card fade-up" style="transition-delay:0.2s">
+        <div class="aside-card-icon">📈</div>
+        <div class="aside-card-title">Always Learning</div>
+        <p class="aside-card-body">
+          Committed to daily learning disciplines — structured study across technology,
+          automation, financial systems, and business strategy.
+        </p>
+      </div>
+      <div class="aside-card fade-up" style="transition-delay:0.3s">
+        <div class="aside-card-icon">🌐</div>
+        <div class="aside-card-title">Freelance Practitioner</div>
+        <p class="aside-card-body">
+          Real-world, client-facing execution experience. I've built and deployed
+          live systems — not just concepts — across multiple industries.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills & Expertise</div>
+  <h2 class="section-h2">
+    Built on the tools<br>that <em>actually work.</em>
+  </h2>
+  <p class="section-body">
+    A practical, hands-on toolkit — every tool here has been deployed in real client systems,
+    not just studied in theory.
+  </p>
+
+  <div class="skills-grid">
+    <div class="skill-card featured fade-up">
+      <div class="skill-tag">⭐ Core Platform</div>
+      <div class="skill-name">GoHighLevel</div>
+      <p class="skill-desc">
+        My primary build platform for CRM, funnels, pipelines, automation workflows,
+        booking systems, and AI-powered operations. Full sub-account architecture to
+        advanced conditional logic.
+      </p>
+      <div class="skill-tools">
+        <span class="skill-tool-tag">CRM</span>
+        <span class="skill-tool-tag">Funnels</span>
+        <span class="skill-tool-tag">Pipelines</span>
+        <span class="skill-tool-tag">Workflows</span>
+        <span class="skill-tool-tag">Email + SMS</span>
+        <span class="skill-tool-tag">Voice AI</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-up" style="transition-delay:0.1s">
+      <div class="skill-tag">🔗 Automation</div>
+      <div class="skill-name">n8n</div>
+      <p class="skill-desc">
+        Advanced workflow automation and middleware logic — connecting GHL to external
+        APIs, processing data, and building intelligent multi-step automation pipelines
+        beyond what native tools allow.
+      </p>
+      <div class="skill-tools">
+        <span class="skill-tool-tag">Workflows</span>
+        <span class="skill-tool-tag">HTTP Nodes</span>
+        <span class="skill-tool-tag">Webhooks</span>
+        <span class="skill-tool-tag">Data Transform</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-up" style="transition-delay:0.2s">
+      <div class="skill-tag">⚡ Integration</div>
+      <div class="skill-name">Zapier</div>
+      <p class="skill-desc">
+        Rapid integration and task automation between apps. Used for connecting
+        platforms that need lightweight, reliable data passing without heavy infrastructure.
+      </p>
+      <div class="skill-tools">
+        <span class="skill-tool-tag">Zaps</span>
+        <span class="skill-tool-tag">Multi-step</span>
+        <span class="skill-tool-tag">Filters</span>
+        <span class="skill-tool-tag">Paths</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-up" style="transition-delay:0.3s">
+      <div class="skill-tag">🌐 API Layer</div>
+      <div class="skill-name">Webhooks & APIs</div>
+      <p class="skill-desc">
+        Custom webhook configuration, REST API integrations, and real-time data
+        exchange between platforms. The backbone of any serious automation stack.
+      </p>
+      <div class="skill-tools">
+        <span class="skill-tool-tag">REST APIs</span>
+        <span class="skill-tool-tag">Webhooks</span>
+        <span class="skill-tool-tag">JSON</span>
+        <span class="skill-tool-tag">Custom Headers</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-up" style="transition-delay:0.35s">
+      <div class="skill-tag">🧱 Web</div>
+      <div class="skill-name">Funnels & Websites</div>
+      <p class="skill-desc">
+        High-converting landing pages, multi-step funnels, and branded websites —
+        designed for performance, not just aesthetics. Built inside GHL and standalone.
+      </p>
+      <div class="skill-tools">
+        <span class="skill-tool-tag">Landing Pages</span>
+        <span class="skill-tool-tag">Lead Gen</span>
+        <span class="skill-tool-tag">Opt-ins</span>
+        <span class="skill-tool-tag">Sales Pages</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-up" style="transition-delay:0.4s">
+      <div class="skill-tag">🤖 AI</div>
+      <div class="skill-name">AI & GPT Systems</div>
+      <p class="skill-desc">
+        AI-embedded workflows using GPT for lead qualification, conversation logic,
+        content generation, and intelligent routing — making systems smarter by default.
+      </p>
+      <div class="skill-tools">
+        <span class="skill-tool-tag">GPT API</span>
+        <span class="skill-tool-tag">Voice AI</span>
+        <span class="skill-tool-tag">Classifiers</span>
+        <span class="skill-tool-tag">Smart Routing</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool tags -->
+  <div style="margin-top: 48px;">
+    <div class="section-label" style="margin-bottom: 20px;">Full Tool Stack</div>
+    <div class="authority-tags">
+      <span class="atag">GoHighLevel</span>
+      <span class="atag">n8n</span>
+      <span class="atag">Zapier</span>
+      <span class="atag">Webhooks</span>
+      <span class="atag">GPT API</span>
+      <span class="atag">Voice AI</span>
+      <span class="atag">CRM Architecture</span>
+      <span class="atag">Funnel Design</span>
+      <span class="atag">Pipeline Logic</span>
+      <span class="atag">Email Automation</span>
+      <span class="atag">SMS Workflows</span>
+      <span class="atag">REST APIs</span>
+      <span class="atag">MCP Servers</span>
+      <span class="atag">System Thinking</span>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS -->
+<section id="interests">
+  <div class="section-label">Beyond The Build</div>
+  <h2 class="section-h2" style="color:#fff">
+    Strategy beyond<br>the screen.
+  </h2>
+  <p class="section-body">
+    My thinking isn't limited to tech. The same systems mindset I apply to automation,
+    I apply to finance, growth, and life.
+  </p>
+
+  <div class="interests-grid">
+    <div class="interest-item fade-up">
+      <div class="interest-icon">📊</div>
+      <div class="interest-title">Investments & Finance</div>
+      <p class="interest-desc">
+        Actively exploring investments and financial planning strategies —
+        building assets alongside building systems. Long-term thinking applied to money.
+      </p>
+    </div>
+    <div class="interest-item fade-up" style="transition-delay:0.1s">
+      <div class="interest-icon">🏠</div>
+      <div class="interest-title">Real Estate</div>
+      <p class="interest-desc">
+        Studying real estate as a scalable income vehicle — understanding markets,
+        leverage, and cash flow as part of a broader asset-building strategy.
+      </p>
+    </div>
+    <div class="interest-item fade-up" style="transition-delay:0.2s">
+      <div class="interest-icon">📚</div>
+      <div class="interest-title">Structured Learning</div>
+      <p class="interest-desc">
+        Daily study disciplines and personal growth frameworks — treating learning
+        like a system, with consistency and measurable progress baked in.
+      </p>
+    </div>
+    <div class="interest-item fade-up" style="transition-delay:0.3s">
+      <div class="interest-icon">🚀</div>
+      <div class="interest-title">Scalable Income Systems</div>
+      <p class="interest-desc">
+        Building multiple, compounding income streams that work independently —
+        applying the same automation thinking to personal financial architecture.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="section-label" style="justify-content:center">
+    Let's Work Together
+  </div>
+  <h2 class="cta-h2">
+    Ready to build something<br>that actually <em>scales?</em>
+  </h2>
+  <p class="cta-sub">
+    If you need a system — not just a tool setup — let's talk. One honest conversation
+    about your operations and what's possible with the right automation stack.
+  </p>
+  <div class="cta-buttons">
+    <a href="https://your-calendar-link.com" class="btn-light">Book a Strategy Call →</a>
+    <a href="index.html#systems" class="btn-outline">Explore My Systems</a>
+  </div>
+  <p class="cta-note">No commitment required · Usually responds within 24 hours</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Ritesh Baswa</div>
+  <div class="footer-copy">© 2025 B Ritesh Rao. All rights reserved.</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Trigger hero elements immediately
+  setTimeout(() => {
+    document.querySelectorAll('#about-hero .fade-up').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 120);
+    });
+  }, 300);
+</script>
+</body>
+</html>
